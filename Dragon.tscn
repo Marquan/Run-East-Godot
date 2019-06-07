@@ -1,0 +1,53 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://Dragon.gd" type="Script" id=1]
+[ext_resource path="res://Fireball.tscn" type="PackedScene" id=2]
+[ext_resource path="res://resources/spr_player/drag_fly0.png" type="Texture" id=3]
+[ext_resource path="res://resources/spr_player/drag_fly1.png" type="Texture" id=4]
+[ext_resource path="res://resources/spr_player/drag_fly2.png" type="Texture" id=5]
+[ext_resource path="res://resources/spr_player/drag_att0.png" type="Texture" id=6]
+[ext_resource path="res://resources/spr_player/drag_att1.png" type="Texture" id=7]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ) ],
+"loop": true,
+"name": "flying",
+"speed": 4.0
+}, {
+"frames": [ ExtResource( 6 ), ExtResource( 7 ) ],
+"loop": true,
+"name": "attack",
+"speed": 4.0
+} ]
+
+[sub_resource type="CapsuleShape2D" id=2]
+radius = 9.61774
+height = 31.8365
+
+[node name="Dragon" type="Area2D"]
+z_index = 1
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+SPEED = 100
+basic_bullet = ExtResource( 2 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 1 )
+animation = "flying"
+frame = 1
+playing = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource( 2 )
+
+[node name="ShootTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="Mouth" type="Position2D" parent="."]
+position = Vector2( 15, 2 )
+[connection signal="timeout" from="ShootTimer" to="." method="_on_ShootTimer_timeout"]

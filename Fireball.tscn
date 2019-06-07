@@ -1,0 +1,43 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Fireball.gd" type="Script" id=1]
+[ext_resource path="res://resources/spr_player/projectiles/fireball0.png" type="Texture" id=2]
+[ext_resource path="res://resources/spr_player/projectiles/fireball1.png" type="Texture" id=3]
+[ext_resource path="res://resources/spr_player/projectiles/fireball_expl0.png" type="Texture" id=4]
+[ext_resource path="res://resources/spr_player/projectiles/fireball_expl1.png" type="Texture" id=5]
+[ext_resource path="res://resources/spr_player/projectiles/fireball_expl2.png" type="Texture" id=6]
+
+[sub_resource type="CircleShape2D" id=1]
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 3 ) ],
+"loop": true,
+"name": "moving",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ) ],
+"loop": true,
+"name": "explode",
+"speed": 5.0
+} ]
+
+[node name="Fireball" type="RigidBody2D"]
+collision_layer = 0
+gravity_scale = 0.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+SPEED = 100
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( -0.237823, 2.37827 )
+rotation = 1.5708
+shape = SubResource( 1 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 2 )
+animation = "moving"
+frame = 1
+playing = true
